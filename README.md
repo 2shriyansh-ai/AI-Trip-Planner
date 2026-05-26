@@ -95,59 +95,6 @@ AI-Trip-Planner/
 
 ---
 
-## 🚀 Getting Started
-
-### Prerequisites
-
-Make sure you have the following installed:
-- [Node.js](https://nodejs.org/) (v18 or above)
-- npm (comes with Node.js)
-- A [Google Cloud](https://console.cloud.google.com/) account
-- A [Firebase](https://console.firebase.google.com/) project
-
-### Installation
-
-```bash
-# 1. Clone the repository
-git clone https://github.com/2shriyansh-ai/AI-Trip-Planner.git
-
-# 2. Navigate into the project directory
-cd AI-Trip-Planner
-
-# 3. Install all dependencies
-npm install
-
-# 4. Create a .env file in the root directory (see below)
-
-# 5. Start the development server
-npm run dev
-```
-
-The app will be running at `http://localhost:5173`
-
----
-
-## 🔑 Environment Variables
-
-Create a `.env` file in the root of the project and add the following:
-
-```env
-VITE_GOOGLE_PLACES_API_KEY=your_google_places_api_key
-VITE_GOOGLE_GEMINI_AI_API_KEY=your_gemini_api_key
-VITE_GOOGLE_AUTH_CLIENT_ID=your_firebase_auth_client_id
-```
-
-> ⚠️ **Security Note:** Never commit your `.env` file. It is already listed in `.gitignore`. For deployment, add these as environment variables in your Vercel project settings.
-
-### How to Get Each Key
-
-| Key | Source |
-|---|---|
-| `VITE_GOOGLE_PLACES_API_KEY` | [Google Cloud Console](https://console.cloud.google.com/) → Enable Places API |
-| `VITE_GOOGLE_GEMINI_AI_API_KEY` | [Google AI Studio](https://makersuite.google.com/) |
-| `VITE_GOOGLE_AUTH_CLIENT_ID` | [Firebase Console](https://console.firebase.google.com/) → Authentication → Google |
-
----
 
 ## 🧩 How the AI Works
 
