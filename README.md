@@ -142,16 +142,6 @@ Every push to `main` triggers an automatic redeploy.
 
 ---
 
-## 🔮 Future Improvements
-
-- [ ] Google Maps integration to visualize itinerary geographically
-- [ ] Edit and customize AI-generated trips
-- [ ] Share itineraries via public link
-- [ ] Export trip as PDF
-- [ ] Multi-language support
-- [ ] Budget tracker per trip
-
----
 
 ## 🌱 What I Learned
 
