@@ -5,7 +5,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-import { googleLogout, useGoogleLogin } from '@react-oauth/google';
+//import { googleLogout, useGoogleLogin } from '@react-oauth/google';
 import {
   Dialog,
   DialogContent,
@@ -26,10 +26,10 @@ function Header() {
     console.log(user)
   },[])
 
-  const login=useGoogleLogin({
-    onSuccess:(codeResp)=>GetUserProfile(codeResp),
-    onError:(error)=>console.log(error)
-  })
+  //const login=useGoogleLogin({
+    //onSuccess:(codeResp)=>GetUserProfile(codeResp),
+    //onError:(error)=>console.log(error)
+  //})
   
   const GetUserProfile=(tokenInfo)=>{
     axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?acess_token=${tokenInfo?.access_token}`,{
@@ -82,8 +82,9 @@ function Header() {
               <img src="/logo.svg"/>
               <h2 className="font-bold text-lg mt-6">Sign In with Google</h2>
               <p>Sign In to the App with Google authentication securely</p>
-              <Button 
-              onClick={login} className="w-full mt-5 flex gap-4 items-center">
+              <Button
+  className="w-full mt-5 flex gap-4 items-center"
+>
                 <FcGoogle className="h-7 w-7"/>
                 Sign In With Google
               </Button>
