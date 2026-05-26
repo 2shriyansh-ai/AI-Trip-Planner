@@ -12,7 +12,7 @@ An intelligent full-stack travel planning web application that generates persona
 [![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)](https://firebase.google.com/)
 [![Gemini AI](https://img.shields.io/badge/Gemini_AI-4285F4?style=for-the-badge&logo=google&logoColor=white)](https://ai.google.dev/)
 
-🔗 **[https://ai-trip-planner-lake-ten.vercel.app/]** &nbsp;|&nbsp; 
+🔗 **[Live Demo →](https://ai-trip-planner-lake-ten.vercel.app/)**  &nbsp;|&nbsp; 
 
 </div>
 
