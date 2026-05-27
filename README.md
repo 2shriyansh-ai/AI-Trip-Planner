@@ -1,8 +1,25 @@
+<div align="center">
+
 # AI Trip Planner
 
-AI Trip Planner is a React and Vite travel planning app that helps users create day-wise trip itineraries based on destination, trip duration, budget, and traveler type. Users can sign in with Google, generate a trip plan, save it to Firebase Firestore, and view their saved trips later.
+### Plan smarter. Travel better. Generate trip itineraries in seconds.
 
-Live demo: https://ai-trip-planner-lake-ten.vercel.app/
+AI Trip Planner is a React and Vite travel planning app that helps users create day-wise trip itineraries based on destination, trip duration, budget, and traveler type.
+
+[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
+[![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)](https://firebase.google.com/)
+[![Gemini AI](https://img.shields.io/badge/Gemini_AI-4285F4?style=for-the-badge&logo=google&logoColor=white)](https://ai.google.dev/)
+[![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
+
+**[Live Demo](https://ai-trip-planner-lake-ten.vercel.app/)**
+
+</div>
+
+## Overview
+
+Users can sign in with Google, generate a trip plan, save it to Firebase Firestore, and view their saved trips later. The app runs Gemini through a Vercel serverless API route when a Gemini key is configured, and falls back to demo trip data when it is not.
 
 ## Features
 
