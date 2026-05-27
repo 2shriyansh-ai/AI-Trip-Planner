@@ -1,134 +1,235 @@
 <div align="center">
 
-# AI Trip Planner
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=32&duration=3000&pause=1000&color=6366F1&center=true&vCenter=true&width=600&lines=AI+Trip+Planner+%F0%9F%8C%8D;Plan+Smarter.+Travel+Better." alt="Typing SVG" />
 
-### Plan smarter. Travel better. Generate trip itineraries in seconds.
+<br/>
 
-AI Trip Planner is a React and Vite travel planning app that helps users create day-wise trip itineraries based on destination, trip duration, budget, and traveler type.
+<p align="center">
+  <strong>Generate personalized, day-wise travel itineraries in seconds — powered by Google Gemini AI.</strong>
+</p>
 
-[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
-[![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
-[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
-[![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)](https://firebase.google.com/)
-[![Gemini AI](https://img.shields.io/badge/Gemini_AI-4285F4?style=for-the-badge&logo=google&logoColor=white)](https://ai.google.dev/)
-[![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
+<br/>
 
-**[Live Demo](https://ai-trip-planner-lake-ten.vercel.app/)**
+<p align="center">
+  <a href="https://ai-trip-planner-lake-ten.vercel.app/" target="_blank">
+    <img src="https://img.shields.io/badge/🚀%20Live%20Demo-Visit%20App-6366f1?style=for-the-badge" alt="Live Demo"/>
+  </a>
+</p>
+
+<br/>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/React-18-20232A?style=flat-square&logo=react&logoColor=61DAFB"/>
+  <img src="https://img.shields.io/badge/Vite-5-646CFF?style=flat-square&logo=vite&logoColor=white"/>
+  <img src="https://img.shields.io/badge/TailwindCSS-3-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Firebase-10-FFCA28?style=flat-square&logo=firebase&logoColor=black"/>
+  <img src="https://img.shields.io/badge/Gemini%20AI-4285F4?style=flat-square&logo=google&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Vercel-Deployed-000000?style=flat-square&logo=vercel&logoColor=white"/>
+</p>
 
 </div>
 
-## Overview
+---
 
-Users can sign in with Google, generate a trip plan, save it to Firebase Firestore, and view their saved trips later. The app runs Gemini through a Vercel serverless API route when a Gemini key is configured, and falls back to demo trip data when it is not.
+## 📖 Overview
 
-## Features
+**AI Trip Planner** is a full-stack React + Vite web application that takes the stress out of travel planning. Enter your destination, trip duration, budget, and traveler type — and the app generates a complete itinerary with hotel recommendations and day-wise activity plans, all powered by Google Gemini AI.
 
-- Google sign-in using OAuth
-- Manual destination entry
-- AI-generated trip plans with hotel recommendations and day-wise itinerary
-- Demo trip fallback when no Gemini API key is configured
-- Saved trip history using Firebase Firestore
-- Trip detail pages with hotel and place cards
-- Fallback images when place photos are unavailable
-- Responsive UI built with Tailwind CSS
-- Deployed on Vercel with GitHub integration
+Users authenticate with Google OAuth, generated trips are persisted to Firebase Firestore, and the app is deployed on Vercel with a serverless API route that keeps the Gemini key safely off the client bundle. A demo fallback ensures the app remains fully usable even without API keys configured.
 
-## Tech Stack
+---
 
-- React 18
-- Vite
-- Tailwind CSS
-- React Router DOM
-- Firebase Firestore
-- Google OAuth
-- Google Gemini API
-- Vercel Serverless Functions
-- ESLint
+## ✨ Features
 
+| Feature | Description |
+|---|---|
+| 🔐 **Google OAuth** | One-click sign-in via Google authentication |
+| 🤖 **AI Itinerary Generation** | Gemini AI produces hotel picks and day-wise plans from a structured prompt |
+| 🗂️ **Trip History** | All trips saved to Firebase Firestore and accessible anytime |
+| 🖼️ **Fallback Images** | Graceful image fallback when place photos are unavailable |
+| 🎭 **Demo Mode** | Returns pre-built demo trip data when no Gemini API key is configured |
+| 🔒 **Serverless API Route** | Gemini key lives in a Vercel serverless function — never exposed to the browser |
+| 📱 **Responsive UI** | Fully responsive across mobile and desktop with Tailwind CSS |
+| ⚡ **Fast Builds** | Vite 5 for lightning-fast dev server and production builds |
+
+---
+
+## 🛠️ Tech Stack
+
+<table>
+  <tr>
+    <td><b>Frontend</b></td>
+    <td>React 18, Vite, Tailwind CSS, React Router DOM, shadcn/ui, Lucide React</td>
+  </tr>
+  <tr>
+    <td><b>AI</b></td>
+    <td>Google Gemini API (<code>@google/generative-ai</code>)</td>
+  </tr>
+  <tr>
+    <td><b>Auth & DB</b></td>
+    <td>Firebase Firestore, Google OAuth (<code>@react-oauth/google</code>)</td>
+  </tr>
+  <tr>
+    <td><b>Deployment</b></td>
+    <td>Vercel (with serverless API route for Gemini)</td>
+  </tr>
+  <tr>
+    <td><b>Tooling</b></td>
+    <td>ESLint, PostCSS, Autoprefixer</td>
+  </tr>
+</table>
+
+---
+
+## 🗂️ Project Structure
 
 ```
-
-## How It Works
-
-```text
-User enters destination, days, budget, and traveler type
-        |
-        v
-Frontend sends a structured prompt to /api/generate-trip
-        |
-        v
-Vercel serverless function uses Gemini if GOOGLE_GEMINI_AI_API_KEY is available
-        |
-        v
-If Gemini is unavailable, the app returns a demo trip plan
-        |
-        v
-Trip data is saved to Firebase Firestore
-        |
-        v
-User can view saved trips and itinerary details
+AI-Trip-Planner/
+├── api/
+│   └── generate-trip.js          # Vercel serverless function — calls Gemini securely
+├── public/
+│   ├── landing.png
+│   ├── logo.svg
+│   └── road-trip-vacation.jpg
+├── src/
+│   ├── components/
+│   │   ├── custom/               # App-specific UI components
+│   │   └── ui/                   # shadcn/ui base components
+│   ├── constants/
+│   │   └── options.jsx           # Budget options, traveler types, AI prompt template
+│   ├── create-trip/
+│   │   └── index.jsx             # Trip creation form
+│   ├── my-trips/
+│   │   └── index.jsx             # Saved trips listing page
+│   ├── service/
+│   │   ├── AIModal.jsx           # Frontend trip generation helper
+│   │   ├── firebaseConfig.js     # Firebase initialization
+│   │   └── GlobalApi.jsx         # Place photo helper with fallback
+│   └── view-trip/
+│       ├── [tripId]/             # Dynamic trip detail route
+│       └── components/           # Hotel cards, itinerary cards, etc.
+├── .env.example
+├── vercel.json
+├── vite.config.js
+└── package.json
 ```
 
-## Environment Variables
+---
 
-Create a `.env` file in the project root for local development.
+## 🔄 How It Works
 
-```env
-VITE_GOOGLE_AUTH_CLIENT_ID=your_google_oauth_client_id
-GOOGLE_GEMINI_AI_API_KEY=your_gemini_api_key
+```
+┌─────────────────────────────────────────────────────────────┐
+│  User fills in: destination · days · budget · traveler type │
+└───────────────────────────┬─────────────────────────────────┘
+                            │
+                            ▼
+              Frontend sends structured prompt
+                to /api/generate-trip (Vercel)
+                            │
+              ┌─────────────┴──────────────┐
+              │                            │
+              ▼                            ▼
+   GOOGLE_GEMINI_AI_API_KEY          Key not found
+        is set?                           │
+              │                           ▼
+              ▼                    Returns demo trip
+   Calls Gemini API, returns              data
+     real AI-generated plan
+              │
+              └──────────────┬────────────┘
+                             │
+                             ▼
+              Trip data saved to Firebase Firestore
+                             │
+                             ▼
+           User can view trip details, hotels,
+              and day-wise itinerary cards
 ```
 
-`VITE_GOOGLE_AUTH_CLIENT_ID` is required for Google sign-in.
+---
 
-`GOOGLE_GEMINI_AI_API_KEY` is optional for local/demo testing. If it is missing, the app generates demo trip data instead of calling Gemini.
+## ⚙️ Getting Started
 
-The app no longer requires a Google Places API key.
+### Prerequisites
 
-## Getting Started
+- Node.js 18+
+- A Firebase project with Firestore enabled
+- A Google Cloud OAuth 2.0 Client ID
+- *(Optional)* A Google Gemini API key
 
-Install dependencies:
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/2shriyansh-ai/AI-Trip-Planner.git
+cd AI-Trip-Planner
+```
+
+### 2. Install dependencies
 
 ```bash
 npm install
 ```
 
-Start the development server:
+### 3. Configure environment variables
 
-```bash
-npm run dev
-```
-
-Build for production:
-
-```bash
-npm run build
-```
-
-Run lint checks:
-
-```bash
-npm run lint
-```
-
-## Deployment
-
-The app is deployed on Vercel.
-
-For production, add these environment variables in Vercel:
+Create a `.env` file in the project root:
 
 ```env
 VITE_GOOGLE_AUTH_CLIENT_ID=your_google_oauth_client_id
 GOOGLE_GEMINI_AI_API_KEY=your_gemini_api_key
 ```
 
-Then redeploy the project from the Vercel dashboard.
+> `VITE_GOOGLE_AUTH_CLIENT_ID` is **required** for Google sign-in.  
+> `GOOGLE_GEMINI_AI_API_KEY` is **optional** — the app falls back to demo trip data if omitted.  
+> No Google Places API key is required.
 
-## Notes
+### 4. Start the development server
 
-- Destination input is manual, so Google Maps billing is not required.
-- Place photos use a fallback image if no external photo API is configured.
-- Gemini is called from the serverless API route, so the Gemini key is not exposed in the browser bundle.
+```bash
+npm run dev
+```
 
-## License
+### 5. Build for production
 
-This project is open source and available under the MIT License.
+```bash
+npm run build
+```
+
+---
+
+## 🚀 Deployment
+
+The app is deployed on **Vercel** with GitHub integration.
+
+Add these environment variables in your Vercel project settings:
+
+```env
+VITE_GOOGLE_AUTH_CLIENT_ID=your_google_oauth_client_id
+GOOGLE_GEMINI_AI_API_KEY=your_gemini_api_key
+```
+
+Then trigger a redeploy from the Vercel dashboard. The `api/generate-trip.js` serverless function is automatically picked up by Vercel — no extra configuration needed.
+
+> ⚠️ **Note:** `GOOGLE_GEMINI_AI_API_KEY` is used only in the serverless function and is never exposed in the browser bundle.
+
+---
+
+## 📝 Notes
+
+- **No Maps billing required** — destination input is manual text entry, no Google Maps API calls.
+- **Graceful image fallback** — place cards display a default image when no external photo API is configured.
+- **Gemini key security** — the API key is exclusively read server-side inside the Vercel function.
+
+---
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+---
+
+<div align="center">
+  <sub>Built with ☕ and curiosity · <a href="https://github.com/2shriyansh-ai">@2shriyansh-ai</a></sub>
+</div>
+
