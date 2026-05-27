@@ -1,17 +1,9 @@
-<svg width="188" height="44" viewBox="0 0 188 44" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="TripPilot AI">
+<svg width="214" height="44" viewBox="0 0 214 44" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="SmartTrip AI">
   <rect x="1" y="1" width="42" height="42" rx="13" fill="#0F172A"/>
   <path d="M13.5 27.4C18.2 18.9 24.8 14 33 11.7C30.8 19.9 25.9 26.5 17.4 31.2L18.2 25.8L13.5 27.4Z" fill="#38BDF8"/>
   <path d="M18.2 25.8L22.7 21.3" stroke="white" stroke-width="2.6" stroke-linecap="round"/>
   <circle cx="29.6" cy="15.1" r="2" fill="white"/>
   <path d="M9.8 35C15.2 34.1 18.8 32.1 22 28.8" stroke="#F97316" stroke-width="2.4" stroke-linecap="round"/>
-  <path d="M56 29.6V14.4H62.2C65.7 14.4 68 16.4 68 19.4C68 22.5 65.7 24.5 62.2 24.5H59.4V29.6H56ZM59.4 21.6H62C63.7 21.6 64.7 20.8 64.7 19.4C64.7 18 63.7 17.2 62 17.2H59.4V21.6Z" fill="#0F172A"/>
-  <path d="M72.4 29.6V17.9H69.2V14.4H79.1V17.9H75.9V29.6H72.4Z" fill="#0F172A"/>
-  <path d="M81.2 29.6V14.4H84.7V29.6H81.2Z" fill="#0F172A"/>
-  <path d="M88.4 29.6V14.4H94.6C98.1 14.4 100.4 16.4 100.4 19.4C100.4 22.5 98.1 24.5 94.6 24.5H91.8V29.6H88.4ZM91.8 21.6H94.4C96.1 21.6 97.1 20.8 97.1 19.4C97.1 18 96.1 17.2 94.4 17.2H91.8V21.6Z" fill="#0F172A"/>
-  <path d="M103.7 29.6V14.4H107.2V26.6H114V29.6H103.7Z" fill="#0F172A"/>
-  <path d="M123.1 29.9C118.5 29.9 115.2 26.6 115.2 22C115.2 17.4 118.5 14.1 123.1 14.1C127.7 14.1 131 17.4 131 22C131 26.6 127.7 29.9 123.1 29.9ZM123.1 26.7C125.6 26.7 127.4 24.8 127.4 22C127.4 19.2 125.6 17.3 123.1 17.3C120.6 17.3 118.8 19.2 118.8 22C118.8 24.8 120.6 26.7 123.1 26.7Z" fill="#0F172A"/>
-  <path d="M136.1 29.6V17.9H132.9V14.4H142.8V17.9H139.6V29.6H136.1Z" fill="#0F172A"/>
-  <path d="M151 29.6L156.6 14.4H160.4L166 29.6H162.4L161.4 26.6H155.6L154.6 29.6H151ZM156.5 23.8H160.5L158.5 17.9L156.5 23.8Z" fill="#0F172A"/>
-  <path d="M168.4 29.6V14.4H171.9V29.6H168.4Z" fill="#0F172A"/>
-  <path d="M56 36.5C62.5 35 68.2 35.4 74.4 37.6C81.1 40 87.4 40 94.3 37.6C101.2 35.2 107.5 35.2 114.4 37.6C121.3 40 127.6 40 134.5 37.6C141.4 35.2 147.7 35.2 154.6 37.6" stroke="#38BDF8" stroke-width="1.8" stroke-linecap="round"/>
+  <text x="56" y="29.8" fill="#0F172A" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="20" font-weight="800" letter-spacing="0">SmartTrip AI</text>
+  <path d="M56 36.5C62.5 35 68.2 35.4 74.4 37.6C81.1 40 87.4 40 94.3 37.6C101.2 35.2 107.5 35.2 114.4 37.6C121.3 40 127.6 40 134.5 37.6C141.4 35.2 147.7 35.2 154.6 37.6C161.5 40 167.8 40 174.7 37.6" stroke="#38BDF8" stroke-width="1.8" stroke-linecap="round"/>
 </svg>
