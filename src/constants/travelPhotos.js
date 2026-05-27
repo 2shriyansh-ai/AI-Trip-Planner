@@ -27,14 +27,27 @@ export const travelPhotos = [
 
 const getStableLock = (value) => {
   const text = String(value || 'smarttrip').toLowerCase();
-  return text.split('').reduce((sum, char) => sum + char.charCodeAt(0), 0) % 1000;
+  let hash = 0;
+
+  for (let index = 0; index < text.length; index += 1) {
+    hash = ((hash << 5) - hash + text.charCodeAt(index)) | 0;
+  }
+
+  return Math.abs(hash) % 100000;
 };
 
-const getSearchTags = (seed) => {
+const genericTagsByType = {
+  destination: ['travel', 'landmark', 'city'],
+  hotel: ['hotel', 'resort', 'building'],
+  place: ['tourist', 'attraction', 'landmark'],
+};
+
+const getSearchTags = (seed, type = 'destination') => {
   const text = String(seed).trim();
+  const genericTags = genericTagsByType[type] || genericTagsByType.destination;
 
   if (!text) {
-    return 'travel,landmark';
+    return genericTags.join(',');
   }
 
   const locationTags = text
@@ -45,25 +58,26 @@ const getSearchTags = (seed) => {
     .slice(0, 3)
     .join(',');
 
-  return `${locationTags},travel,landmark`;
+  return [...new Set([...locationTags.split(',').filter(Boolean), ...genericTags])].slice(0, 5).join(',');
 };
 
-export const getDynamicDestinationPhoto = (seed = '', width = 1200, height = 800) => {
-  const tags = getSearchTags(seed);
-  const lock = getStableLock(seed);
+export const getDynamicDestinationPhoto = (seed = '', width = 1200, height = 800, type = 'destination') => {
+  const tags = getSearchTags(seed, type);
+  const lock = getStableLock(`${type}:${seed}`);
+  const encodedTags = encodeURIComponent(tags).replace(/%2C/g, ',');
 
   return {
     city: String(seed || 'Travel destination').trim(),
-    url: `https://loremflickr.com/${width}/${height}/${tags}?lock=${lock}`,
+    url: `https://loremflickr.com/${width}/${height}/${encodedTags}?lock=${lock}`,
   };
 };
 
-export const getDestinationPhoto = (seed = '', width = 1200, height = 800) => {
+export const getDestinationPhoto = (seed = '', width = 1200, height = 800, type = 'destination') => {
   const text = String(seed).trim();
 
   if (!text) {
     return travelPhotos[0];
   }
 
-  return getDynamicDestinationPhoto(text, width, height);
+  return getDynamicDestinationPhoto(text, width, height, type);
 };

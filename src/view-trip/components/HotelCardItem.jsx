@@ -1,34 +1,26 @@
-import { GetPhotoUrl, GetPlaceDetails } from '@/service/GlobalApi';
-import { getDestinationPhoto } from '@/constants/travelPhotos';
-import React, { useEffect, useState } from 'react'
+import { usePlacePhoto } from '@/hooks/usePlacePhoto';
+import React from 'react'
 import { Link } from 'react-router-dom'
 
-function HotelCardItem({item}) {
-    const [photoUrl,setPhotoUrl] = useState();
-    const fallbackPhoto = getDestinationPhoto(item?.hotelName || item?.hotelAddress);
+function HotelCardItem({item, location}) {
+    const { alt, photoUrl } = usePlacePhoto({
+      name: item?.hotelName,
+      address: item?.hotelAddress,
+      location,
+      details: item?.description,
+      providedUrl: item?.hotelImageUrl,
+      type: 'hotel',
+      width: 900,
+      height: 600,
+    });
 
-    useEffect(()=>{
-      item&&GetPlaceImg();
-    },[item])
-  
-    const GetPlaceImg=async()=>{ 
-      const data={
-        textQuery:item?.hotelName
-      }
-      try {
-        const resp= await GetPlaceDetails(data);
-        setPhotoUrl(GetPhotoUrl(resp));
-      } catch (error) {
-        setPhotoUrl(null);
-      }
-    }
   return (
     <div>
       <Link to={'https://www.google.com/maps/search/?api=1&query='+item?.hotelName+ "," +item?.hotelAddress} target='_blank'>
                     <div className='hover:scale-105 transition-all cursor-pointer'>
                         <img
-                            src={photoUrl ? photoUrl : fallbackPhoto.url}
-                            alt={item?.hotelName || fallbackPhoto.city}
+                            src={photoUrl}
+                            alt={alt}
                             onError={(event) => { event.currentTarget.src = '/road-trip-vacation.jpg' }}
                             className='rounded-xl h-[180px] w-full object-cover'
                         />

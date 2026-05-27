@@ -1,37 +1,28 @@
 import { Button } from '@/components/ui/button';
-import { GetPhotoUrl, GetPlaceDetails } from '@/service/GlobalApi';
-import { getDestinationPhoto } from '@/constants/travelPhotos';
-import React, { useEffect, useState } from 'react'
+import { usePlacePhoto } from '@/hooks/usePlacePhoto';
+import React from 'react'
 import { FaLocationDot } from "react-icons/fa6";
 import { Link } from 'react-router-dom';
 
-function PlaceCardItem({ place }) {
-    const [photoUrl, setPhotoUrl] = useState();
-    const fallbackPhoto = getDestinationPhoto(place?.placeName);
+function PlaceCardItem({ place, location }) {
+    const { alt, photoUrl } = usePlacePhoto({
+        name: place?.placeName,
+        location,
+        details: place?.placeDetails,
+        providedUrl: place?.placeImageUrl,
+        type: 'place',
+        width: 700,
+        height: 700,
+    });
 
-    useEffect(() => {
-        place && GetPlaceImg();
-    }, [place])
-
-    const GetPlaceImg = async () => {
-        const data = {
-            textQuery: place.placeName
-        }
-        try {
-            const resp = await GetPlaceDetails(data);
-            setPhotoUrl(GetPhotoUrl(resp));
-        } catch (error) {
-            setPhotoUrl(null);
-        }
-    }
     return (
         <div>
             <Link to={'https://www.google.com/maps/search/?api=1&query=' + place?.placeName + "," + place?.geoCoordinates} target='_blank'>
                 <div className='my-4 bg-gray-50 p-2 gap-2 border rounded-lg flex flex-cols-2 hover:scale-105 transition-all hover:shadow-md cursor-pointer '>
                     <div className='py-2 mx-3'>
                         <img
-                            src={photoUrl ? photoUrl : fallbackPhoto.url}
-                            alt={place?.placeName || fallbackPhoto.city}
+                            src={photoUrl}
+                            alt={alt}
                             onError={(event) => { event.currentTarget.src = '/road-trip-vacation.jpg' }}
                             className='w-[140px] h-[140px] rounded-xl object-cover'
                         />

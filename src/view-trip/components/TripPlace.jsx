@@ -11,7 +11,7 @@ function TripPlace({trip}) {
                 <h2 className='font-medium text-l'>Day {item?.day}</h2>
                 <div className='grid md:grid-cols-2 gap-4'>
                         {item.plan?.map((place,index)=>(
-                          <PlaceCardItem place={place} key={index}/>
+                          <PlaceCardItem place={place} location={trip?.userSelection?.location} key={index}/>
                         ))}
                     </div>
         </div>

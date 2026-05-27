@@ -1,32 +1,22 @@
-import { GetPhotoUrl, GetPlaceDetails } from '@/service/GlobalApi';
-import { getDestinationPhoto } from '@/constants/travelPhotos';
-import React, { useEffect, useState } from 'react'
+import { usePlacePhoto } from '@/hooks/usePlacePhoto';
+import React from 'react'
 
 
 
 function InfoSection({trip}) {
-  const [photoUrl,setPhotoUrl] = useState();
-  const fallbackPhoto = getDestinationPhoto(trip?.userSelection?.location);
-  useEffect(()=>{
-    trip&&GetPlaceImg();
-  },[trip])
+  const { alt, photoUrl } = usePlacePhoto({
+    name: trip?.userSelection?.location,
+    location: trip?.userSelection?.location,
+    type: 'destination',
+    width: 1400,
+    height: 800,
+  });
 
-  const GetPlaceImg=async()=>{
-    const data={
-      textQuery:trip?.userSelection?.location
-    }
-    try {
-      const resp= await GetPlaceDetails(data);
-      setPhotoUrl(GetPhotoUrl(resp));
-    } catch (error) {
-      setPhotoUrl(null);
-    }
-  }
   return (
     <div>
       <img
-        src={photoUrl ? photoUrl : fallbackPhoto.url}
-        alt={trip?.userSelection?.location || fallbackPhoto.city}
+        src={photoUrl}
+        alt={alt}
         onError={(event) => { event.currentTarget.src = '/road-trip-vacation.jpg' }}
         className='h-[330px] w-full object-cover rounded-xl'
       />

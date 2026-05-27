@@ -1,67 +1,11 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { createDemoTrip } from "../src/service/createDemoTrip.js";
 
 const extractJson = (text) => {
   const trimmed = text.trim();
   const fencedMatch = trimmed.match(/```(?:json)?\s*([\s\S]*?)```/i);
   const jsonText = fencedMatch?.[1] ?? trimmed;
   return JSON.parse(jsonText);
-};
-
-const getPromptValue = (prompt, pattern, fallback) => {
-  return prompt.match(pattern)?.[1]?.trim() || fallback;
-};
-
-const createDemoTrip = (prompt) => {
-  const location = getPromptValue(prompt, /Location:\s*(.*?)\s+for\s+\d+\s+days/i, "your destination");
-  const days = Number(getPromptValue(prompt, /for\s+(\d+)\s+days/i, "3"));
-  const budget = getPromptValue(prompt, /with a\s+(.*?)\s+budget/i, "Moderate");
-  const safeDays = Number.isFinite(days) && days > 0 ? Math.min(days, 5) : 3;
-
-  return {
-    hotelOptions: [
-      {
-        hotelName: `${location} Central Stay`,
-        hotelAddress: `Central area, ${location}`,
-        price: `${budget} range`,
-        hotelImageUrl: "",
-        geoCoordinates: "",
-        rating: "4.2",
-        description: `A convenient ${budget.toLowerCase()} hotel option close to popular sights in ${location}.`,
-      },
-      {
-        hotelName: `${location} Comfort Inn`,
-        hotelAddress: `Main market, ${location}`,
-        price: `${budget} range`,
-        hotelImageUrl: "",
-        geoCoordinates: "",
-        rating: "4.0",
-        description: `A practical stay for travelers who want easy access to food, transit, and attractions.`,
-      },
-    ],
-    itinerary: Array.from({ length: safeDays }, (_, index) => ({
-      day: index + 1,
-      plan: [
-        {
-          placeName: `${location} highlight ${index + 1}`,
-          placeDetails: `Explore a well-known local attraction and nearby food spots in ${location}.`,
-          placeImageUrl: "",
-          geoCoordinates: "",
-          ticketPricing: "Check locally",
-          rating: "4.3",
-          time: "Morning to afternoon",
-        },
-        {
-          placeName: `${location} evening walk ${index + 1}`,
-          placeDetails: `Spend the evening in a scenic or popular local area suited to your ${budget.toLowerCase()} budget.`,
-          placeImageUrl: "",
-          geoCoordinates: "",
-          ticketPricing: "Free or low cost",
-          rating: "4.1",
-          time: "Evening",
-        },
-      ],
-    })),
-  };
 };
 
 export default async function handler(req, res) {
