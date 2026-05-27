@@ -7,6 +7,7 @@ import InfoSection from '../components/InfoSection';
 import Hotels from '../components/Hotels';
 import TripPlace from '../components/TripPlace';
 import Footer from '../components/Footer';
+import { repairPlaceholderTrip } from '@/service/createDemoTrip';
 
 function ViewTrip() {
     const {tripId} = useParams();
@@ -16,7 +17,7 @@ function ViewTrip() {
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
             console.log("Document data:", docSnap.data());
-            setTrip(docSnap.data());
+            setTrip(repairPlaceholderTrip(docSnap.data()));
           } else {
             console.log("No such document!");
             toast('No trip found!')

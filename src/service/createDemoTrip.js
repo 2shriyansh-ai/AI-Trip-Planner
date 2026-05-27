@@ -125,3 +125,45 @@ export const createDemoTrip = (prompt) => {
     }),
   };
 };
+
+const hasPlaceholderName = (name = '') => {
+  return /\b(highlight|evening walk|place\s*\d+|attraction\s*\d+)\b/i.test(String(name));
+};
+
+const hasPlaceholderHotelName = (name = '') => {
+  return /\b(central stay|comfort inn|city centre hotel|heritage stay|boutique inn)\b/i.test(String(name));
+};
+
+export const repairPlaceholderTrip = (trip) => {
+  const location = trip?.userSelection?.location;
+  const totalDays = trip?.userSelection?.totalDays || trip?.tripData?.itinerary?.length || 3;
+  const traveler = trip?.userSelection?.traveler || 'travelers';
+  const budget = trip?.userSelection?.budget || 'Moderate';
+
+  if (!trip?.tripData || !location) {
+    return trip;
+  }
+
+  const repairedTripData = createDemoTrip(
+    `Generate a realistic travel plan for Location: ${location} for ${totalDays} days for ${traveler} with a ${budget} budget.`
+  );
+  const needsHotelRepair = trip.tripData.hotelOptions?.some((hotel) => (
+    hasPlaceholderHotelName(hotel?.hotelName)
+  ));
+  const needsPlaceRepair = trip.tripData.itinerary?.some((day) => (
+    day?.plan?.some((place) => hasPlaceholderName(place?.placeName))
+  ));
+
+  if (!needsHotelRepair && !needsPlaceRepair) {
+    return trip;
+  }
+
+  return {
+    ...trip,
+    tripData: {
+      ...trip.tripData,
+      hotelOptions: needsHotelRepair ? repairedTripData.hotelOptions : trip.tripData.hotelOptions,
+      itinerary: needsPlaceRepair ? repairedTripData.itinerary : trip.tripData.itinerary,
+    },
+  };
+};
