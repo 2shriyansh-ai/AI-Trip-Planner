@@ -63,9 +63,9 @@ const getStableLock = (value) => {
 };
 
 const genericTagsByType = {
-  destination: ['travel', 'landmark', 'city'],
-  hotel: ['hotel', 'resort', 'building'],
-  place: ['tourist', 'attraction', 'landmark'],
+  destination: ['city', 'skyline', 'landmark', 'travel'],
+  hotel: ['hotel', 'lobby', 'room', 'travel'],
+  place: ['tourist', 'attraction', 'landmark', 'travel'],
 };
 
 const getSearchTags = (seed, type = 'destination') => {
@@ -90,11 +90,11 @@ const getSearchTags = (seed, type = 'destination') => {
 export const getDynamicDestinationPhoto = (seed = '', width = 1200, height = 800, type = 'destination') => {
   const tags = getSearchTags(seed, type);
   const lock = getStableLock(`${type}:${seed}`);
-  const encodedTags = encodeURIComponent(tags).replace(/%2C/g, ',');
+  const encodedTags = encodeURIComponent(tags);
 
   return {
     city: String(seed || 'Travel destination').trim(),
-    url: `https://loremflickr.com/${width}/${height}/${encodedTags}?lock=${lock}`,
+    url: `https://source.unsplash.com/${width}x${height}/?${encodedTags}&sig=${lock}`,
   };
 };
 
