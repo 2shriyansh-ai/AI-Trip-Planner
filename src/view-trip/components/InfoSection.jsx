@@ -18,7 +18,7 @@ function InfoSection({trip}) {
         src={photoUrl}
         alt={alt}
         onError={(event) => { event.currentTarget.src = '/road-trip-vacation.jpg' }}
-        className='h-[330px] w-full object-cover rounded-xl'
+        className='h-[330px] w-full rounded-xl bg-gray-100 object-contain'
       />
        <div className='flex justify-between items-center'>
             <div className='my-6 flex flex-col gap-2'>

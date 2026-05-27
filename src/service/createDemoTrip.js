@@ -12,6 +12,26 @@ const normalizeLocation = (location) => {
 
 const destinationGuides = [
   {
+    match: ['china'],
+    hotels: [
+      ['China World Hotel Beijing', 'No. 1 Jianguomenwai Avenue, Chaoyang, Beijing', 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=900&q=80'],
+      ['The Peninsula Shanghai', 'No. 32 The Bund, Shanghai', 'https://images.unsplash.com/photo-1455587734955-081b22074882?auto=format&fit=crop&w=900&q=80'],
+      ['Park Hyatt Shanghai', '100 Century Avenue, Pudong, Shanghai', 'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=900&q=80'],
+    ],
+    places: [
+      ['Great Wall of China', 'Walk along one of China\'s most famous historic landmarks, with mountain views and restored watchtowers.', 'Paid entry', 'Morning', 'https://images.unsplash.com/photo-1508804185872-d7badad00f7d?auto=format&fit=crop&w=700&q=80'],
+      ['Forbidden City', 'Explore the imperial palace complex in Beijing, known for grand courtyards, gates, halls, and museum collections.', 'Paid entry', 'Afternoon', 'https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?auto=format&fit=crop&w=700&q=80'],
+      ['Temple of Heaven', 'Visit the classic Ming dynasty temple complex and surrounding park used for imperial ceremonies.', 'Paid entry', 'Morning', 'https://images.unsplash.com/photo-1599571234909-29ed5d1321d6?auto=format&fit=crop&w=700&q=80'],
+      ['The Bund', 'See Shanghai\'s famous waterfront promenade, skyline views, historic buildings, and evening lights.', 'Free entry', 'Evening', 'https://images.unsplash.com/photo-1548919973-5cef591cdbc9?auto=format&fit=crop&w=700&q=80'],
+      ['Yu Garden', 'Visit a classical garden in Shanghai with pavilions, rockeries, ponds, and nearby old-town streets.', 'Paid entry', 'Afternoon', 'https://images.unsplash.com/photo-1523731407965-2430cd12f5e4?auto=format&fit=crop&w=700&q=80'],
+      ['Terracotta Army', 'Tour the archaeological site near Xi\'an featuring thousands of life-sized terracotta soldiers.', 'Paid entry', 'Full day', 'https://source.unsplash.com/700x700/?terracotta-army,china&sig=711'],
+      ['West Lake', 'Relax around Hangzhou\'s scenic lake, bridges, gardens, temples, and waterside walking paths.', 'Free or low cost', 'Evening', 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=700&q=80'],
+      ['Zhangjiajie National Forest Park', 'Spend time among dramatic sandstone pillars, forest trails, viewpoints, and mountain scenery.', 'Paid entry', 'Full day', 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=700&q=80'],
+      ['Li River', 'Take in karst mountain scenery around Guilin and Yangshuo by boat, bike, or riverside walk.', 'Tour cost varies', 'Morning', 'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=700&q=80'],
+      ['Chengdu Research Base of Giant Panda Breeding', 'Visit Chengdu\'s well-known panda conservation and research park.', 'Paid entry', 'Morning', 'https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?auto=format&fit=crop&w=700&q=80'],
+    ],
+  },
+  {
     match: ['hyderabad', 'hyderabad india'],
     hotels: [
       ['Taj Deccan', 'Road No. 1, Banjara Hills, Hyderabad'],
@@ -97,13 +117,13 @@ export const createDemoTrip = (prompt) => {
   const places = guide?.places || genericPlaces(location);
 
   return {
-    hotelOptions: hotels.slice(0, 3).map(([hotelName, hotelAddress], index) => ({
+    hotelOptions: hotels.slice(0, 3).map(([hotelName, hotelAddress, hotelImageUrl], index) => ({
       hotelName,
       hotelAddress,
       price: `${budget} range`,
-      hotelImageUrl: '',
+      hotelImageUrl: hotelImageUrl || '',
       geoCoordinates: '',
-      rating: String(4.1 + (index % 3) / 10),
+      rating: (4.1 + (index % 3) / 10).toFixed(1),
       description: `A ${budget.toLowerCase()} stay option with convenient access to major sights in ${location}.`,
     })),
     itinerary: Array.from({ length: safeDays }, (_, dayIndex) => {
@@ -112,13 +132,13 @@ export const createDemoTrip = (prompt) => {
 
       return {
         day: dayIndex + 1,
-        plan: [firstPlace, secondPlace].map(([placeName, placeDetails, ticketPricing, time], placeIndex) => ({
+        plan: [firstPlace, secondPlace].map(([placeName, placeDetails, ticketPricing, time, placeImageUrl], placeIndex) => ({
           placeName,
           placeDetails,
-          placeImageUrl: '',
+          placeImageUrl: placeImageUrl || '',
           geoCoordinates: '',
           ticketPricing,
-          rating: String(4.2 + ((dayIndex + placeIndex) % 4) / 10),
+          rating: (4.2 + ((dayIndex + placeIndex) % 4) / 10).toFixed(1),
           time,
         })),
       };
@@ -134,6 +154,10 @@ const hasPlaceholderHotelName = (name = '') => {
   return /\b(central stay|comfort inn|city centre hotel|heritage stay|boutique inn)\b/i.test(String(name));
 };
 
+const hasGenericFallbackPlaceName = (name = '') => {
+  return /^(historic centre|main market|city museum|waterfront or viewpoint|old town walking area|public garden)\b/i.test(String(name));
+};
+
 export const repairPlaceholderTrip = (trip) => {
   const location = trip?.userSelection?.location;
   const totalDays = trip?.userSelection?.totalDays || trip?.tripData?.itinerary?.length || 3;
@@ -147,11 +171,12 @@ export const repairPlaceholderTrip = (trip) => {
   const repairedTripData = createDemoTrip(
     `Generate a realistic travel plan for Location: ${location} for ${totalDays} days for ${traveler} with a ${budget} budget.`
   );
+  const guide = getGuide(location);
   const needsHotelRepair = trip.tripData.hotelOptions?.some((hotel) => (
     hasPlaceholderHotelName(hotel?.hotelName)
   ));
   const needsPlaceRepair = trip.tripData.itinerary?.some((day) => (
-    day?.plan?.some((place) => hasPlaceholderName(place?.placeName))
+    day?.plan?.some((place) => hasPlaceholderName(place?.placeName) || (guide && hasGenericFallbackPlaceName(place?.placeName)))
   ));
 
   if (!needsHotelRepair && !needsPlaceRepair) {

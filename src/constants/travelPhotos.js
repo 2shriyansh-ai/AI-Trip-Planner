@@ -25,6 +25,32 @@ export const travelPhotos = [
   },
 ];
 
+const curatedDestinationPhotos = [
+  {
+    match: ['china'],
+    city: 'China',
+    url: 'https://images.unsplash.com/photo-1508804185872-d7badad00f7d?auto=format&fit=crop&w=1400&q=80',
+  },
+  {
+    match: ['hyderabad'],
+    city: 'Hyderabad, India',
+    url: 'https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1400&q=80',
+  },
+  {
+    match: ['goa'],
+    city: 'Goa, India',
+    url: 'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1400&q=80',
+  },
+];
+
+const getCuratedDestinationPhoto = (seed) => {
+  const text = String(seed || '').toLowerCase();
+
+  return curatedDestinationPhotos.find((photo) => (
+    photo.match.some((item) => text.includes(item))
+  ));
+};
+
 const getStableLock = (value) => {
   const text = String(value || 'smarttrip').toLowerCase();
   let hash = 0;
@@ -77,6 +103,12 @@ export const getDestinationPhoto = (seed = '', width = 1200, height = 800, type 
 
   if (!text) {
     return travelPhotos[0];
+  }
+
+  const curatedPhoto = type === 'destination' ? getCuratedDestinationPhoto(text) : null;
+
+  if (curatedPhoto) {
+    return curatedPhoto;
   }
 
   return getDynamicDestinationPhoto(text, width, height, type);
