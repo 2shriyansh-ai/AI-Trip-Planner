@@ -45,37 +45,7 @@ Users can sign in with Google, generate a trip plan, save it to Firebase Firesto
 - Vercel Serverless Functions
 - ESLint
 
-## Project Structure
 
-```text
-AI-Trip-Planner/
-  api/
-    generate-trip.js          # Serverless route for Gemini trip generation
-  public/
-    landing.png
-    logo.svg
-    road-trip-vacation.jpg
-  src/
-    components/
-      custom/
-      ui/
-    constants/
-      options.jsx             # Budget, traveler options, and AI prompt
-    create-trip/
-      index.jsx               # Trip creation form
-    my-trips/
-      index.jsx               # Saved trips page
-    service/
-      AIModal.jsx             # Frontend trip generation helper
-      firebaseConfig.js       # Firebase setup
-      GlobalApi.jsx           # Optional place photo helper with fallback
-    view-trip/
-      [tripId]/
-      components/
-  .env.example
-  package.json
-  vite.config.js
-  vercel.json
 ```
 
 ## How It Works
