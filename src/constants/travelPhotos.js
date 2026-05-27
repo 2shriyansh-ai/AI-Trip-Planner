@@ -25,17 +25,45 @@ export const travelPhotos = [
   },
 ];
 
-export const getDestinationPhoto = (seed = '') => {
+const getStableLock = (value) => {
+  const text = String(value || 'smarttrip').toLowerCase();
+  return text.split('').reduce((sum, char) => sum + char.charCodeAt(0), 0) % 1000;
+};
+
+const getSearchTags = (seed) => {
+  const text = String(seed).trim();
+
+  if (!text) {
+    return 'travel,landmark';
+  }
+
+  const locationTags = text
+    .toLowerCase()
+    .replace(/[^a-z0-9\s,]/g, ' ')
+    .split(/[\s,]+/)
+    .filter(Boolean)
+    .slice(0, 3)
+    .join(',');
+
+  return `${locationTags},travel,landmark`;
+};
+
+export const getDynamicDestinationPhoto = (seed = '', width = 1200, height = 800) => {
+  const tags = getSearchTags(seed);
+  const lock = getStableLock(seed);
+
+  return {
+    city: String(seed || 'Travel destination').trim(),
+    url: `https://loremflickr.com/${width}/${height}/${tags}?lock=${lock}`,
+  };
+};
+
+export const getDestinationPhoto = (seed = '', width = 1200, height = 800) => {
   const text = String(seed).trim();
 
   if (!text) {
     return travelPhotos[0];
   }
 
-  const total = text
-    .toLowerCase()
-    .split('')
-    .reduce((sum, char) => sum + char.charCodeAt(0), 0);
-
-  return travelPhotos[total % travelPhotos.length];
+  return getDynamicDestinationPhoto(text, width, height);
 };
