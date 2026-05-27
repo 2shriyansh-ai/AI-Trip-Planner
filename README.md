@@ -81,41 +81,6 @@ Users authenticate with Google OAuth, generated trips are persisted to Firebase 
 
 ---
 
-## 🗂️ Project Structure
-
-```
-AI-Trip-Planner/
-├── api/
-│   └── generate-trip.js          # Vercel serverless function — calls Gemini securely
-├── public/
-│   ├── landing.png
-│   ├── logo.svg
-│   └── road-trip-vacation.jpg
-├── src/
-│   ├── components/
-│   │   ├── custom/               # App-specific UI components
-│   │   └── ui/                   # shadcn/ui base components
-│   ├── constants/
-│   │   └── options.jsx           # Budget options, traveler types, AI prompt template
-│   ├── create-trip/
-│   │   └── index.jsx             # Trip creation form
-│   ├── my-trips/
-│   │   └── index.jsx             # Saved trips listing page
-│   ├── service/
-│   │   ├── AIModal.jsx           # Frontend trip generation helper
-│   │   ├── firebaseConfig.js     # Firebase initialization
-│   │   └── GlobalApi.jsx         # Place photo helper with fallback
-│   └── view-trip/
-│       ├── [tripId]/             # Dynamic trip detail route
-│       └── components/           # Hotel cards, itinerary cards, etc.
-├── .env.example
-├── vercel.json
-├── vite.config.js
-└── package.json
-```
-
----
-
 ## 🔄 How It Works
 
 ```
