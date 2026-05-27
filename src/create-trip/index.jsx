@@ -1,17 +1,14 @@
-import React, { useEffect, useState } from "react"
-import GooglePlacesAutocomplete from "react-google-places-autocomplete"
+import React, { useState } from "react"
 import { Input } from "@/components/ui/input"
 import { AI_PROMPT, SelectBudgetOptions,SelectTravelList } from "@/constants/options"
 import { Button } from "@/components/ui/button"
 import { toast } from "sonner"
-import { chatSession } from "@/service/AIModal"
+import { generateTrip } from "@/service/AIModal"
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
-  DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog"
 import { FcGoogle } from "react-icons/fc";
 import { useGoogleLogin } from "@react-oauth/google"
@@ -22,8 +19,7 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useNavigate } from "react-router-dom"
 
 function CreateTrip() {
-  const [place,setPlace]=useState();
-  const [formData,setFromData]=useState([]);
+  const [formData,setFromData]=useState({});
   const [openDialog,setOpenDialog]=useState(false);
   const [loading,setLoading]=useState(false);
   const navigate=useNavigate();
@@ -35,10 +31,6 @@ function CreateTrip() {
       [name]:value
     })
   }
-  useEffect(()=>{ 
-    console.log(formData)
-  },[formData])
-
   const login=useGoogleLogin({
     onSuccess:(codeResp)=>GetUserProfile(codeResp),
     onError:(error)=>console.log(error)
@@ -54,7 +46,6 @@ function CreateTrip() {
       toast("Please fill all details!")
       return ;
     }
-    toast("Form generated.");
     setLoading(true);
     const FINAL_PROMPT=AI_PROMPT
     .replace('{location}',formData?.location)
@@ -62,19 +53,22 @@ function CreateTrip() {
     .replace('{traveler}',formData?.traveler)
     .replace('{budget}',formData?.budget)
 
-    const result=await chatSession.sendMessage(FINAL_PROMPT);
-    // console.log("--",result?.response?.text());
-    setLoading(false);
-    SaveAiTrip(result?.response?.text());
+    try {
+      const tripData=await generateTrip(FINAL_PROMPT);
+      await SaveAiTrip(tripData);
+      toast("Trip generated.");
+    } catch (error) {
+      toast("Unable to generate trip. Please try again.");
+      setLoading(false);
+    }
   } 
 
   const SaveAiTrip=async(TripData) => {
-    setLoading(true);
     const user=JSON.parse(localStorage.getItem("user"));
     const docId=Date.now().toString();
     await setDoc(doc(db, "AiTrips", docId), {
       userSelection:formData,
-      tripData:JSON.parse(TripData),
+      tripData:TripData,
       userEmail:user?.email,
       id:docId
     });
@@ -83,7 +77,7 @@ function CreateTrip() {
   }
 
   const GetUserProfile=(tokenInfo)=>{
-    axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?acess_token=${tokenInfo?.access_token}`,{
+    axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${tokenInfo?.access_token}`,{
       headers: {
        Authorization: `Bearer ${tokenInfo?.access_token}`,
        Accept:'Application/json'
@@ -105,13 +99,11 @@ function CreateTrip() {
       <div className="mt-20 flex flex-col gap-10 ">
        <div className="mb-5">
         <label className="text-xl mb-3 font-medium">What is destination of choice?</label>
-          <GooglePlacesAutocomplete
-          apiKey={import.meta.env.VITE_GOOGLE_PLACES_API_KEY}
-          selectProps={{
-            place,
-            onChange:(v)=>{setPlace(v); handleInputChange('location',v.label)}
-          }}
-        />
+          <Input
+            placeholder="ex. Goa, India"
+            value={formData?.location || ""}
+            onChange={(v)=>handleInputChange('location',v.target.value)}
+          />
        </div>
 
         <div className="mb-5">

@@ -1,11 +1,12 @@
 import axios from "axios"
 
 const BASE_URL ='https://places.googleapis.com/v1/places:searchText'
+const apiKey=import.meta.env.VITE_GOOGLE_PLACES_API_KEY;
 
 const config={
     headers:{
         'Content-Type': 'application/json',
-        'X-Goog-Api-Key': import.meta.env.VITE_GOOGLE_PLACES_API_KEY,
+        'X-Goog-Api-Key': apiKey,
         'X-Goog-FieldMask': [
             'places.photos',
             'places.displayName',
@@ -14,5 +15,17 @@ const config={
     }
 }
 
-export const GetPlaceDetails=(data)=>axios.post(BASE_URL,data,config)
-export const PHOTO_REF_URL = `https://places.googleapis.com/v1/{NAME}/media?maxHeightPx=600&maxWidthPx=600&key=${import.meta.env.VITE_GOOGLE_PLACES_API_KEY}`;
+export const GetPlaceDetails=(data)=>{
+    if(!apiKey){
+        return Promise.resolve(null);
+    }
+
+    return axios.post(BASE_URL,data,config);
+}
+
+export const PHOTO_REF_URL = `https://places.googleapis.com/v1/{NAME}/media?maxHeightPx=600&maxWidthPx=600&key=${apiKey}`;
+
+export const GetPhotoUrl=(placesResponse)=>{
+    const photoName=placesResponse?.data?.places?.[0]?.photos?.[0]?.name;
+    return photoName ? PHOTO_REF_URL.replace('{NAME}',photoName) : null;
+}
