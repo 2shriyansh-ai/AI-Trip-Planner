@@ -1,10 +1,12 @@
 import { GetPhotoUrl, GetPlaceDetails } from '@/service/GlobalApi';
+import { getDestinationPhoto } from '@/constants/travelPhotos';
 import React, { useEffect, useState } from 'react'
 
 
 
 function InfoSection({trip}) {
   const [photoUrl,setPhotoUrl] = useState();
+  const fallbackPhoto = getDestinationPhoto(trip?.userSelection?.location);
   useEffect(()=>{
     trip&&GetPlaceImg();
   },[trip])
@@ -22,7 +24,7 @@ function InfoSection({trip}) {
   }
   return (
     <div>
-      <img src={photoUrl ? photoUrl : '/road-trip-vacation.jpg'}  className='h-[330px] w-full object-cover rounded-xl'/>
+      <img src={photoUrl ? photoUrl : fallbackPhoto.url} alt={trip?.userSelection?.location || fallbackPhoto.city} className='h-[330px] w-full object-cover rounded-xl'/>
        <div className='flex justify-between items-center'>
             <div className='my-6 flex flex-col gap-2'>
                 <h2 className='font-bold text-2xl'>{trip?.userSelection?.location}</h2>

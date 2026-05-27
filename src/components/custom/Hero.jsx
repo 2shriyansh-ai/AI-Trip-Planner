@@ -3,8 +3,11 @@ import { Button } from '../ui/button';
 import { Link } from 'react-router-dom';
 import Login from "../Login";
 import { CalendarDays, MapPin, Plane, Sparkles, WalletCards } from 'lucide-react';
+import { travelPhotos } from '@/constants/travelPhotos';
 
 function Hero() {
+  const featuredPhoto = travelPhotos[2];
+
   return (
     <div className="flex flex-col items-center px-5 gap-9">
       <h1
@@ -28,13 +31,13 @@ function Hero() {
           </div>
           <div className="grid gap-6 p-5 md:grid-cols-[1.35fr_0.65fr] md:p-7">
             <div className="relative min-h-[260px] overflow-hidden rounded-lg">
-              <img src="/road-trip-vacation.jpg" alt="Scenic travel destination" className="absolute inset-0 h-full w-full object-cover" />
+              <img src={featuredPhoto.url} alt={featuredPhoto.city} className="absolute inset-0 h-full w-full object-cover" />
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 to-transparent p-5 text-white">
                 <div className="mb-2 inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-sm backdrop-blur">
                   <Sparkles className="h-4 w-4" />
                   AI generated itinerary
                 </div>
-                <h2 className="text-2xl font-bold">Italy Coastal Escape</h2>
+                <h2 className="text-2xl font-bold">{featuredPhoto.city}</h2>
                 <p className="mt-1 text-sm text-white/85">Hotels, food stops, viewpoints, and day-wise plans in one place.</p>
               </div>
             </div>
@@ -43,6 +46,16 @@ function Hero() {
                 <p className="text-sm font-semibold uppercase text-[#f56551]">Trip Snapshot</p>
                 <h2 className="mt-2 text-2xl font-bold">Plan smarter with SmartTrip AI</h2>
                 <p className="mt-2 text-gray-500">A polished preview of the real product without placeholder logos or old screenshots.</p>
+              </div>
+              <div className="grid grid-cols-3 gap-2">
+                {travelPhotos.slice(0, 3).map((photo) => (
+                  <img
+                    key={photo.city}
+                    src={photo.url}
+                    alt={photo.city}
+                    className="h-20 w-full rounded-lg object-cover"
+                  />
+                ))}
               </div>
               <div className="grid gap-3">
                 <div className="flex items-center gap-3 rounded-lg bg-gray-50 p-3">
