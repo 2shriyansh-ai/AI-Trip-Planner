@@ -4,7 +4,7 @@ import React from 'react'
 
 
 function InfoSection({trip}) {
-  const { alt, photoUrl } = usePlacePhoto({
+  const { alt, fallbackUrl, photoUrl } = usePlacePhoto({
     name: trip?.userSelection?.location,
     location: trip?.userSelection?.location,
     type: 'destination',
@@ -17,8 +17,12 @@ function InfoSection({trip}) {
       <img
         src={photoUrl}
         alt={alt}
-        onError={(event) => { event.currentTarget.src = '/road-trip-vacation.jpg' }}
-        className='h-[330px] w-full rounded-xl bg-gray-100 object-contain'
+        onError={(event) => {
+          if (event.currentTarget.src !== fallbackUrl) {
+            event.currentTarget.src = fallbackUrl;
+          }
+        }}
+        className='h-[330px] w-full rounded-xl bg-gray-100 object-cover'
       />
        <div className='flex justify-between items-center'>
             <div className='my-6 flex flex-col gap-2'>

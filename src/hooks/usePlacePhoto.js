@@ -2,7 +2,16 @@ import { useEffect, useMemo, useState } from 'react';
 import { getDestinationPhoto } from '@/constants/travelPhotos';
 import { GetPhotoUrl, GetPlaceDetails } from '@/service/GlobalApi';
 
-const isUsableImageUrl = (url) => /^https?:\/\//i.test(String(url || '').trim());
+const isUsableImageUrl = (url) => {
+  const value = String(url || '').trim();
+
+  if (!/^https?:\/\//i.test(value)) {
+    return false;
+  }
+
+  return !/\.(gif|svg)(\?|#|$)/i.test(value)
+    && !/(giphy|tenor|lottie|animation|cartoon|placeholder|road-trip-vacation)/i.test(value);
+};
 
 const compactParts = (parts) => (
   parts
@@ -76,6 +85,7 @@ export const usePlacePhoto = ({
 
   return {
     alt: name || location || fallbackPhoto.city,
+    fallbackUrl: fallbackPhoto.url,
     photoUrl: preferredUrl || placesPhotoUrl || fallbackPhoto.url,
   };
 };

@@ -3,7 +3,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 function HotelCardItem({item, location}) {
-    const { alt, photoUrl } = usePlacePhoto({
+    const { alt, fallbackUrl, photoUrl } = usePlacePhoto({
       name: item?.hotelName,
       address: item?.hotelAddress,
       location,
@@ -21,7 +21,11 @@ function HotelCardItem({item, location}) {
                         <img
                             src={photoUrl}
                             alt={alt}
-                            onError={(event) => { event.currentTarget.src = '/road-trip-vacation.jpg' }}
+                            onError={(event) => {
+                                if (event.currentTarget.src !== fallbackUrl) {
+                                    event.currentTarget.src = fallbackUrl;
+                                }
+                            }}
                             className='rounded-xl h-[180px] w-full object-cover'
                         />
                         <div className='my-3 py-2'>

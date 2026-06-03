@@ -5,7 +5,7 @@ import { FaLocationDot } from "react-icons/fa6";
 import { Link } from 'react-router-dom';
 
 function PlaceCardItem({ place, location }) {
-    const { alt, photoUrl } = usePlacePhoto({
+    const { alt, fallbackUrl, photoUrl } = usePlacePhoto({
         name: place?.placeName,
         location,
         details: place?.placeDetails,
@@ -23,7 +23,11 @@ function PlaceCardItem({ place, location }) {
                         <img
                             src={photoUrl}
                             alt={alt}
-                            onError={(event) => { event.currentTarget.src = '/road-trip-vacation.jpg' }}
+                            onError={(event) => {
+                                if (event.currentTarget.src !== fallbackUrl) {
+                                    event.currentTarget.src = fallbackUrl;
+                                }
+                            }}
                             className='w-[140px] h-[140px] rounded-xl object-cover'
                         />
                     </div>
