@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { getDestinationPhoto } from '@/constants/travelPhotos';
+import { getDestinationPhoto, travelPhotos } from '@/constants/travelPhotos';
 import { GetPhotoUrl, GetPlaceDetails } from '@/service/GlobalApi';
 
 const isUsableImageUrl = (url) => {
@@ -85,6 +85,7 @@ export const usePlacePhoto = ({
 
   return {
     alt: name || location || fallbackPhoto.city,
+    emergencyFallbackUrl: travelPhotos[0].url,
     fallbackUrl: fallbackPhoto.url,
     photoUrl: preferredUrl || placesPhotoUrl || fallbackPhoto.url,
   };

@@ -27,6 +27,11 @@ export const travelPhotos = [
 
 const curatedDestinationPhotos = [
   {
+    match: ['egypt', 'cairo', 'giza', 'pyramid', 'pyramids', 'luxor', 'nile'],
+    city: 'Egypt',
+    url: 'https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?auto=format&fit=crop&w=1400&q=80',
+  },
+  {
     match: ['goa', 'panaji', 'baga', 'calangute', 'anjuna', 'palolem'],
     city: 'Goa, India',
     url: 'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1400&q=80',
